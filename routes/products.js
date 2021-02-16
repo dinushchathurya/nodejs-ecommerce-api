@@ -12,6 +12,15 @@ router.get('/', async (req, res)=> {
     res.status(200).send(productList);
 })
 
+router.get('/:id', async (req, res) => {
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+        res.status(500).json({ success: false, message: 'The product with the given ID not exists' })
+    }
+    res.status(200).send(product)
+})
+
 router.post('/', async (req, res) => {
 
     const category = await Category.findById(req.body.category);
