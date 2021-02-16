@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/dinushchathurya/nodejs-ecommerce-api/issues"
   },
-  "homepage": "https://github.com/dinushchathurya/nodejs-ecommerce-api#readme"
+  "homepage": "https://github.com/dinushchathurya/nodejs-ecommerce-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
