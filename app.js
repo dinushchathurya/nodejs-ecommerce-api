@@ -4,10 +4,12 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+
+const app = express();
+
 app.use(cors());
 app.options('*',cors());
 
-const app = express();
 
 require('dotenv/config');
 
