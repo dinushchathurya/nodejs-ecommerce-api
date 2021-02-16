@@ -5,7 +5,7 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 
 router.get('/', async (req, res)=> {
-    const productList = await Product.find();
+    const productList = await Product.find().select('name image -_id');
     if (!productList) {
         res.status(500), json({success:false})
     }
