@@ -8,7 +8,10 @@ const app = express();
 require('dotenv/config');
 
 const api = process.env.API_URL;
-const productRouter = require('./routes/products');
+const categoriesRoute = require('./routes/categories');
+const productRoute = require('./routes/products');
+const userRoute = require('./routes/users');
+const orderRoute = require('./routes/orders');
 
 // Middlwares
 app.use(bodyParser.json());
@@ -17,7 +20,10 @@ app.use(morgan('tiny'));
 
 // Routes
 
-app.use(`${api}/products`, productRouter);
+app.use(`${api}/products`, productRoute);
+app.use(`${api}/categories`, categoriesRoute);
+app.use(`${api}/users`, userRoute);
+app.use(`${api}/orders`, orderRoute);
 
 const dbConfig = require('./config/database.config.js');
 
