@@ -3,13 +3,22 @@ const router = express();
 
 const Category = require('../models/category');
 
-router.get('/', async (req, res)=>{
+router.get('/', async (req, res) => {
     const categoryList = await Category.find();
 
     if (!categoryList) {
         res.status(500).json({ success: false})
     }
     res.status(200).send(categoryList)
+})
+
+router.get('/:id', async (req, res) => {
+    const category = await Category.findById(req.params.id);
+
+    if (!category) {
+        res.status(500).json({ success: false })
+    }
+    res.status(200).send(category)
 })
 
 router.post('/', async (req, res) => {
