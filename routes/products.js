@@ -6,7 +6,15 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 
 router.get('/', async (req, res)=> {
-    const productList = await Product.find().select('name image');
+
+    let filter = {};
+    if(req.query.categories)
+    {
+        filter = {category: req.query.categories.split(',')}
+    }
+
+    const productList = await Product.find(filter).populate('category');
+    // const productList = await Product.find(filter).select('name image');
     if (!productList) {
         res.status(500), json({success:false})
     }
