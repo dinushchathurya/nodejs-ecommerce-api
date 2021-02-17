@@ -5,7 +5,7 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 
 router.get('/', async (req, res)=> {
-    const productList = await Product.find().select('name image -_id');
+    const productList = await Product.find().select('name image');
     if (!productList) {
         res.status(500), json({success:false})
     }
@@ -13,7 +13,7 @@ router.get('/', async (req, res)=> {
 })
 
 router.get('/:id', async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('category');
 
     if (!product) {
         res.status(500).json({ success: false, message: 'The product with the given ID not exists' })
