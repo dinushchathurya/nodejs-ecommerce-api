@@ -4,25 +4,26 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-
 const app = express();
+
+require('dotenv/config');
+
+const authJwt = require('./helpers/jwt');
 
 app.use(cors());
 app.options('*',cors());
 
-
-require('dotenv/config');
+// Middlewares
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan('tiny'));
+app.use(authJwt());
 
 const api = process.env.API_URL;
 const categoriesRoute = require('./routes/categories');
 const productRoute = require('./routes/products');
 const userRoute = require('./routes/users');
 const orderRoute = require('./routes/orders');
-
-// Middlwares
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(morgan('tiny'));
 
 // Routes
 
