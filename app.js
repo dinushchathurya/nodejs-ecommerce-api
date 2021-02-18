@@ -9,6 +9,7 @@ const app = express();
 require('dotenv/config');
 
 const authJwt = require('./helpers/jwt');
+const errorHandler = require('./helpers/error-handler');
 
 app.use(cors());
 app.options('*',cors());
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('tiny'));
 app.use(authJwt());
+app.use(errorHandler);
 
 const api = process.env.API_URL;
 const categoriesRoute = require('./routes/categories');
