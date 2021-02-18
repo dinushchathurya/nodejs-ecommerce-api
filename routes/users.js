@@ -47,13 +47,17 @@ router.post('/', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const user = await User.findOne({ email: req.body.email})
+    const secret = process.env.secret;
 
     if(!user) {
         return res.status(400).send('User with given Email not found');
     }
 
     if(user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
-        res.status(200).send('User Authenticated');
+        const token = jwt.sign({
+            userID: user.id
+        }, secret )
+        res.status(200).send({user: user.email, token: token});
     } else {
         res.status(400).send('Password is mismatch');
     }
