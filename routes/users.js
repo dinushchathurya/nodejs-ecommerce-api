@@ -5,7 +5,7 @@ const router = express.Router();
 const User = require('../models/User');
 
 router.get('/', async (req, res) =>{
-    const userList = await User.find();
+    const userList = await User.find().select('-passwordHash');
 
     if(!userList) {
         res.status(500).json({success:false})
@@ -14,7 +14,7 @@ router.get('/', async (req, res) =>{
 })
 
 router.get ('/:id', async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).select('-passwordHash');
 
     if (!user) {
         res.status(500).json({ success: false, message: 'The user with the given ID not exists' })
