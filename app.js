@@ -15,10 +15,11 @@ app.use(cors());
 app.options('*',cors());
 
 // Middlewares
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(morgan('tiny'));
 app.use(authJwt());
+app.use('/public/uploads', express.static( __dirname + '/public/uploads'));
 app.use(errorHandler);
 
 const api = process.env.API_URL;
