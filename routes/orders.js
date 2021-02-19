@@ -97,6 +97,16 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+router.get('/get/count', async (req, res) => {
+    const orderCount = await Order.countDocuments((count) => count);
+    if (!orderCount) {
+        res.status(500), json({ success: false })
+    }
+    res.status(200).send({
+        orderCount: orderCount
+    });
+})
+
 router.get('/get/totalsales', async (req, res) => {
     const totalSales = await Order.aggregate([
         { $group: {_id: null, totalsales:{ $sum :'$totalPrice'}}}
@@ -107,4 +117,5 @@ router.get('/get/totalsales', async (req, res) => {
     }
     res.send({ totalsales: totalSales.pop().totalsales})
 })
+
 module.exports = router;
