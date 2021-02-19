@@ -5,7 +5,12 @@ const Order = require('../models/order');
 const OrderItem = require('../models/order-item');
 
 router.get('/', async (req, res) => {
-    const orderList = await Order.find().populate('name' ,'user').sort({'dateOrdered':-1});
+    const orderList = await Order.find()
+    .populate('user' ,'name').sort({'dateOrdered':-1})
+    .populate({ 
+        path: 'orderItems', populate: { 
+            path: 'product', populate: 'category'}
+    });
 
     if (!orderList) {
         res.status(500).json({ success: false })
@@ -55,5 +60,19 @@ router.post('/', async (req, res) => {
         return res.status(404).send('Order cannot be created')
     res.send(order);
 })
+
+router.put('/:id', async (req, res) => {
+    const order = await Order.findByIdAndUpdate(req.params.id, {
+        status: req.body.status,
+    }, {
+        new: true
+    })
+
+    if (!order)
+        return res.status(404).send('Order cannot be created')
+    res.send(order);
+})
+
+
 
 module.exports = router;
