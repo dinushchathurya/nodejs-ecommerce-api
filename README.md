@@ -1,6 +1,6 @@
 # Node.js E-Commerce API 
 
-This full E-Commerce API build using Express and Mongo. In here it's contains all the required functionalites of a full fleged E-commerce API like User registration, User Login, Category Add, Edit & Delete, Product Add, Edit, Delete, Add product feature image & Add product images, Order creation and etc...
+This full E-Commerce API build using Express and Mongo. Here it contains all the required functionalities of a full-fledged E-commerce API like User registration, User Login, Category Add, Edit & Delete, Product Add, Edit, Delete, Add product feature image & Add product images, Order creation and etc...
 
 ## Setup
  
