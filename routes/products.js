@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
         if(isValid){
             uploadError = null
         }
-        cb(uploadError, '/public/uploads/')
+        cb(uploadError, 'public/uploads')
     },
     filename: function (req, file, cb) {
         const fileName = file.originalname.split('').join('-');
@@ -70,7 +70,7 @@ router.post('/', upload.single('image'), async (req, res) => {
         return res.status(400).send('No image in the request')
 
     const fileName = file.filename;
-    const basePath = (req) => `${req.protocol}://${req.get('host')}/public/uploads/`;
+    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
     let product = new Product({
         name: req.body.name,
